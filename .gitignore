@@ -3,4 +3,4 @@ __pycache__/
 *.pyo
 *.log
 .env
-wallet-mk2.json
+*.json
