@@ -1,0 +1,19 @@
+{
+    "secret_key_hex": "f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0987654321...",
+    "mnemonic": "abandon ability able about above absent absorb abstract absurd...",
+    "bitcoin": {
+        "address": "1J6PYEzr4CUoGbnXrELyHszoTSz3wCsCaj",
+        "public_key": "04a34d7f1b...",
+        "private_key_wif": "L4mEi6sA..."
+    },
+    "ethereum": {
+        "address": "0x4b85f5a2...",
+        "public_key": "04cd3f1c...",
+        "private_key_hex": "f9a8b7c6..."
+    },
+    "solana": {
+        "address": "5Z4XpLsH...",
+        "public_key": "5Z4XpLsH...",
+        "private_key_base58": "4B3yf3k..."
+    }
+}
