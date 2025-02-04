@@ -6,7 +6,7 @@ import base58
 import ecdsa
 from bip32utils import BIP32Key
 from mnemonic import Mnemonic
-from solana.keypair import Keypair
+from solders.keypair import Keypair
 
 # Ensure 32-byte (256-bit) private key
 def get_secret_key(input_hex=None):
@@ -26,17 +26,17 @@ mnemonic_phrase = mnemo.to_mnemonic(secret_key)
 seed_bytes = mnemo.to_seed(mnemonic_phrase)
 
 # Bitcoin Wallet (BIP-44)
+HARDENED_OFFSET = 0x80000000
 root_key = BIP32Key.fromEntropy(seed_bytes)
-account_key = root_key.ChildKey(44 + BIP32Key.HARDEN) \
-                      .ChildKey(0 + BIP32Key.HARDEN) \
-                      .ChildKey(0 + BIP32Key.HARDEN)
+account_key = root_key.ChildKey(44 + HARDENED_OFFSET) \
+                      .ChildKey(0 + HARDENED_OFFSET) \
+                      .ChildKey(0 + HARDENED_OFFSET)
 receive_key = account_key.ChildKey(0).ChildKey(0)
 btc_address = receive_key.Address()
 btc_pubkey = receive_key.PublicKey().hex()
 btc_privkey = receive_key.WalletImportFormat()
 
 # Ethereum Wallet
-eth_private_key = secret_key.hex()
 eth_pubkey = ecdsa.SigningKey.from_string(secret_key, curve=ecdsa.SECP256k1).verifying_key
 eth_pubkey_bytes = b"\x04" + eth_pubkey.to_string()
 eth_address = hashlib.sha3_256(eth_pubkey_bytes).digest()[-20:].hex()
@@ -44,7 +44,7 @@ eth_address = "0x" + eth_address
 
 # Solana Wallet
 solana_keypair = Keypair.from_seed(secret_key)
-solana_pubkey = str(solana_keypair.public_key)
+solana_pubkey = str(solana_keypair.pubkey())
 solana_privkey = base58.b58encode(solana_keypair.secret()).decode()
 
 # Output JSON Structure
@@ -59,12 +59,10 @@ wallet_data = {
     },
     "ethereum": {
         "address": eth_address,
-        "public_key": eth_pubkey_bytes.hex(),
-        "private_key_hex": eth_private_key
+        "public_key": eth_pubkey_bytes.hex()
     },
     "solana": {
         "address": solana_pubkey,
-        "public_key": solana_pubkey,
         "private_key_base58": solana_privkey
     }
 }
