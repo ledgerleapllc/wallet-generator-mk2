@@ -52,3 +52,9 @@ python wallet_generator.py f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0987654321
 }
 ```
 
+### Generate vanity wallets
+Included is a vanity address generator. Matches both ethereum prefixes and solana prefixes. Uses multicore parallel processing. Default CPU usage caps at 75%, modified by adjusting **CPU_USAGE_RATIO** at the top of **vanity.py**.
+
+```
+python vanity.py <your_prefix>
+```
