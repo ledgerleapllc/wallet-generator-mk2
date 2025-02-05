@@ -45,7 +45,7 @@ eth_address = "0x" + eth_address
 # Solana Wallet
 solana_keypair = Keypair.from_seed(secret_key)
 solana_pubkey = str(solana_keypair.pubkey())
-solana_privkey = base58.b58encode(solana_keypair.secret()).decode()
+solana_privkey = base58.b58encode(solana_keypair.secret() + bytes(solana_keypair.pubkey())).decode()
 
 # Output JSON Structure
 wallet_data = {

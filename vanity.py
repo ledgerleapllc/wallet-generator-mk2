@@ -48,7 +48,7 @@ def generate_ethereum_wallet(secret_key):
 def generate_solana_wallet(secret_key):
     solana_keypair = Keypair.from_seed(secret_key)
     solana_pubkey = str(solana_keypair.pubkey())
-    solana_privkey = base58.b58encode(solana_keypair.secret()).decode()
+    solana_privkey = base58.b58encode(solana_keypair.secret() + bytes(solana_keypair.pubkey())).decode()
     return {
         "address": solana_pubkey,
         "private_key_base58": solana_privkey,
