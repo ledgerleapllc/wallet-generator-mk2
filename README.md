@@ -42,15 +42,15 @@ python wallet_generator.py f9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0987654321
     "ethereum": {
         "address": "0x4b85f5a2...",
         "public_key": "04cd3f1c...",
-        "private_key_hex": "f9a8b7c6..."
     },
     "solana": {
         "address": "5Z4XpLsH...",
-        "public_key": "5Z4XpLsH...",
         "private_key_base58": "4B3yf3k..."
     }
 }
 ```
+
+**Note:** Bitcoin addresses are generated using the standard BIP44 *m/44'/0'/0'/0/0* derivation path.
 
 ### Generate vanity wallets
 Included is a vanity address generator. Matches both ethereum prefixes and solana prefixes. Uses multicore parallel processing. Default CPU usage caps at 75%, modified by adjusting **CPU_USAGE_RATIO** at the top of **vanity.py**.
