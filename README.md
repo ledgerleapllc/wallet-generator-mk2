@@ -11,7 +11,7 @@ This Python script generates Bitcoin, Ethereum, and Solana wallets from a single
 Clone the repo and install dependencies:
 
 ```sh
-git clone https://github.com/yourusername/wallet-generator.git
+git clone https://github.com/ledgerleapllc/wallet-generator.git
 cd wallet-generator
 pip install -r requirements.txt
 python wallet-generator.py
