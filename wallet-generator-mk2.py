@@ -38,7 +38,6 @@ btc_privkey = receive_key.WalletImportFormat()
 
 # Ethereum Wallet
 eth_pubkey = ecdsa.SigningKey.from_string(secret_key, curve=ecdsa.SECP256k1).verifying_key
-eth_pubkey_bytes = b"\x04" + eth_pubkey.to_string()
 kec = keccak.new(digest_bits=256)
 kec.update(eth_pubkey.to_string())
 eth_address = "0x" + kec.hexdigest()[-40:]
@@ -60,7 +59,7 @@ wallet_data = {
     },
     "ethereum": {
         "address": eth_address,
-        "public_key": eth_pubkey_bytes.hex()
+        "public_key": eth_pubkey.hex()
     },
     "solana": {
         "address": solana_pubkey,

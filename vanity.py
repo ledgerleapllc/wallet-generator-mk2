@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import hashlib
 import base58
 import ecdsa
 import time
@@ -11,6 +10,7 @@ from bip32utils import BIP32Key
 from mnemonic import Mnemonic
 from solders.keypair import Keypair
 from datetime import datetime
+from Crypto.Hash import keccak
 
 # 🔧 CONFIGURATION: Use 75% of available CPU cores
 CPU_USAGE_RATIO = 0.75  # Adjust this for different CPU usage levels
@@ -37,11 +37,12 @@ def generate_bitcoin_wallet(seed_bytes):
 # Generate Ethereum Wallet
 def generate_ethereum_wallet(secret_key):
     eth_pubkey = ecdsa.SigningKey.from_string(secret_key, curve=ecdsa.SECP256k1).verifying_key
-    eth_pubkey_bytes = b"\x04" + eth_pubkey.to_string()
-    eth_address = hashlib.sha3_256(eth_pubkey_bytes).digest()[-20:].hex()
+    kec = keccak.new(digest_bits=256)
+    kec.update(eth_pubkey.to_string())
+    eth_address = "0x" + kec.hexdigest()[-40:]
     return {
         "address": "0x" + eth_address,
-        "public_key": eth_pubkey_bytes.hex(),
+        "public_key": eth_pubkey.hex(),
     }
 
 # Generate Solana Wallet
