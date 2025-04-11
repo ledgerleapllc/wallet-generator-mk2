@@ -39,7 +39,7 @@ def generate_ethereum_wallet(secret_key):
     eth_pubkey = ecdsa.SigningKey.from_string(secret_key, curve=ecdsa.SECP256k1).verifying_key
     kec = keccak.new(digest_bits=256)
     kec.update(eth_pubkey.to_string())
-    eth_address = "0x" + kec.hexdigest()[-40:]
+    eth_address = kec.hexdigest()[-40:]
     return {
         "address": "0x" + eth_address,
         "public_key": eth_pubkey.to_string().hex(),
