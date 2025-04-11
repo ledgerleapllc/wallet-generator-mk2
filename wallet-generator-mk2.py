@@ -1,12 +1,12 @@
 import os
 import sys
 import json
-import hashlib
 import base58
 import ecdsa
 from bip32utils import BIP32Key
 from mnemonic import Mnemonic
 from solders.keypair import Keypair
+from Crypto.Hash import keccak
 
 # Ensure 32-byte (256-bit) private key
 def get_secret_key(input_hex=None):
@@ -39,8 +39,9 @@ btc_privkey = receive_key.WalletImportFormat()
 # Ethereum Wallet
 eth_pubkey = ecdsa.SigningKey.from_string(secret_key, curve=ecdsa.SECP256k1).verifying_key
 eth_pubkey_bytes = b"\x04" + eth_pubkey.to_string()
-eth_address = hashlib.sha3_256(eth_pubkey_bytes).digest()[-20:].hex()
-eth_address = "0x" + eth_address
+kec = keccak.new(digest_bits=256)
+kec.update(eth_pubkey.to_string())
+eth_address = "0x" + kec.hexdigest()[-40:]
 
 # Solana Wallet
 solana_keypair = Keypair.from_seed(secret_key)

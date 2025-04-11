@@ -3,3 +3,4 @@ bip32utils
 mnemonic
 base58
 solana
+pycryptodome
