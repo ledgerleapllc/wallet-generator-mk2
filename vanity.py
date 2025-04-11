@@ -42,7 +42,7 @@ def generate_ethereum_wallet(secret_key):
     eth_address = "0x" + kec.hexdigest()[-40:]
     return {
         "address": "0x" + eth_address,
-        "public_key": eth_pubkey.hex(),
+        "public_key": eth_pubkey.to_string().hex(),
     }
 
 # Generate Solana Wallet

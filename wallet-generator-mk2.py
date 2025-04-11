@@ -59,7 +59,7 @@ wallet_data = {
     },
     "ethereum": {
         "address": eth_address,
-        "public_key": eth_pubkey.hex()
+        "public_key": eth_pubkey.to_string().hex()
     },
     "solana": {
         "address": solana_pubkey,
